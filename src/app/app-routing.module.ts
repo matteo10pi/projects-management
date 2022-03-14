@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './dashboard/home/home.component';
-import { ProjectContainerComponent } from './project/project-container/project-container.component';
+import { HomeComponent } from './modules/dashboards/pages/home/home.component';
 
 const routes: Routes = [
   {
@@ -10,7 +9,17 @@ const routes: Routes = [
   },
   {
     path: 'projects',
-    component: ProjectContainerComponent,
+    loadChildren: () =>
+      import('./modules/project/project.module').then((m) => m.ProjectModule),
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    redirectTo: '/home',
   },
 ];
 
