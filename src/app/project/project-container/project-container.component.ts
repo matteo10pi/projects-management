@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/Project';
 import { ProjectService } from '../project.service';
 
@@ -10,25 +10,26 @@ import { ProjectService } from '../project.service';
 })
 export class ProjectContainerComponent implements OnInit, OnDestroy {
   selectedProject!: Project;
-  projects: Project[] = [];
   subscription!: Subscription;
-
+  projects$!: Observable<Project[]>;
   constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    this.subscription = this.projectService
-      .getAll()
-      .subscribe((data) => (this.projects = data));
+    this.projects$ = this.projectService.getAll();
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   selectProject(project: Project) {
-    this.selectedProject = this.projectService.get(project.id);
+    this.subscription = this.projectService
+      .get(project.id)
+      .subscribe((data) => (this.selectedProject = data));
   }
 
   submitProjectForm(project: Project) {
-    this.projectService.add(project);
+    this.projectService
+      .add(project)
+      .subscribe((data) => (this.projects$ = this.projectService.getAll()));
   }
 }
