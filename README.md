@@ -1,6 +1,13 @@
-# Work in progress
+# Projects Management
 
-## ToDo:
+![](https://github.com/matteo10pi/projects-management/blob/main/src/assets/prj.jpg)
 
-- Use a JSON server
-- Get project list from the json server and use between components as observable
+## Features:
+
+- JSON server
+- RxJS and HttpClient module
+- Services for logs and projects management
+  - Get all projects from the db.json
+  - Add projects to the JSON server
+  - Get project by id
+- Routing for modules: dashboard and project
