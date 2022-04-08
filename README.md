@@ -11,5 +11,5 @@
   - Get all projects from the db.json
   - Add projects to the JSON server
   - Get project by id
-- Routing for modules: dashboard and project
+- Routing for modules: dashboard and project.
 
